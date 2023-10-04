@@ -1,0 +1,1093 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "RAFATEK API DOCS",
+    "version": "1.0",
+    "description": "This is a docs api for API Rafatek App",
+    "contact": {
+      "email": "wicaksanabimaarya01@gmail",
+      "name": "Bima Arya Wicaksana",
+      "url": "bimaaryawicaksana.000webhostapp.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api",
+      "description": "rafatek server"
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "description": "Register new user",
+        "tags": [
+          "Authectication"
+        ],
+        "requestBody": {
+          "description": "Register new user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success register new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Success register new user",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "ulid",
+                          "example": "01h75s8tvec6wred0h9z7cv9jq"
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "example": "kingfirli@gmail.com"
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "password"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The given data was invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "he given data was invalid",
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "array",
+                          "items": {
+                            "type": "array",
+                            "example": "Email is required"
+                          }
+                        },
+                        "password": {
+                          "type": "array",
+                          "items": {
+                            "type": "array",
+                            "example": "Username is required"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "Login user",
+        "tags": [
+          "Authectication"
+        ],
+        "requestBody": {
+          "description": "Login user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success login user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Success login user",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "ulid",
+                          "example": "01h75s8tvec6wred0h9z7cv9jq"
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "example": "kingfirli@gmail.com"
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "password"
+                        },
+                        "token": {
+                          "type": "string",
+                          "example": "01h75s8tvec6wred0h9z7cv9jq"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The given data was invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "he given data was invalid",
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "array",
+                          "items": {
+                            "type": "array",
+                            "example": "Email is required"
+                          }
+                        },
+                        "password": {
+                          "type": "array",
+                          "items": {
+                            "type": "array",
+                            "example": "Username is required"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "delete": {
+        "tags": [
+          "Authectication"
+        ],
+        "description": "Logout current user",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success logout user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "boolean"
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category": {
+      "get": {
+        "description": "Get All Category News",
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {},
+            "required": true
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Size category",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get all category post",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "errors": {
+                      "type": "object"
+                    },
+                    "meta": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": 1,
+                          "name": "sport"
+                        },
+                        {
+                          "id": 2,
+                          "name": "food"
+                        },
+                        {
+                          "id": 3,
+                          "name": "healthy"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "Unauthorized",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Unauthenticated"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "Category not found",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Category not found"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Create New Category",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "Create new category",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "name"
+                ],
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "healty": {
+                  "value": {
+                    "name": "healty"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create new category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Success create new category",
+                    "value": {
+                      "data": {
+                        "id": 1,
+                        "category": "healty"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The given data was invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "array",
+                          "items": {
+                            "type": "array"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "The given data was invalid.",
+                    "value": {
+                      "errors": {
+                        "category": [
+                          "Category is required"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "array"
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "Unauthenticated",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Unauthenticated"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/{id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {},
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {},
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get detail data categorysuccess",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Get detail data category success",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "category": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Success get data for detail category",
+                    "value": {
+                      "data": {
+                        "id": 1,
+                        "name": "healty"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid Parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Invalid Parameter",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Invalid Parameter",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Invalid parameter"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "array"
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "Unauthenticated",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Unauthenticated"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Data not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Data not found",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Data not found",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Category not found"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update category",
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {}
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {}
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update new category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Success update new category",
+                    "value": {
+                      "data": {
+                        "id": 1,
+                        "category": "healty"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The given data was invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "array",
+                          "items": {
+                            "type": "array"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "The given data was invalid.",
+                    "value": {
+                      "errors": {
+                        "category": [
+                          "Category is required"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "array"
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "Unauthenticated",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Unauthenticated"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Data not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Data not found",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Data not found",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Data not Found"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {}
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success deleting data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "message": "Success delete category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The given data was invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "array",
+                          "items": {
+                            "type": "array"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "The given data was invalid.",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Invalid parameter"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "array"
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "Unauthenticated",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Unauthenticated"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Data not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Data not found",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Data not found",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Data not Found"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/{id}/edit": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {}
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success update new category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Success update new category",
+                    "value": {
+                      "data": {
+                        "id": 1,
+                        "category": "healty"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The given data was invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "array",
+                          "items": {
+                            "type": "array"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "The given data was invalid.",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Invalid parameter"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "array"
+                    }
+                  }
+                },
+                "examples": {
+                  "errors": {
+                    "description": "Unauthenticated",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Unauthenticated"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Data not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Data not found",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Data not found",
+                    "value": {
+                      "errors": {
+                        "message": [
+                          "Data not Found"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
